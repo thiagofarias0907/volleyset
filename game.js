@@ -1,71 +1,137 @@
-/**********************************************
-  Setting up Jest
-***********************************************/
-
-const {
-  core: { describe, it, expect, run },
-  enzyme: { mount },
-  prettify
-} = window.jestLite;
-
-/**
-  Variáveis do jogo
-*/
-
 class Time {
-  constructor (nome,score){
+  constructor (nome){
     this.nome = nome;
-    this.score = score;
+    this.set = 0;
+    this.pontoAtual = 0;
   };
 }
 
-// var sets= [{"A":0,"B":0, score:25,max:30 }];
+class SetDojogo {
+  constructor (timeA, timeB, score){
+    this.a = timeA;
+    this.b = timeB;
+    this.score = score;
+    this.fim = false;
+  }
+
+  retornaVencedor(){
+    if (this.a.pontoAtual < this.score && this.b.pontoAtual < this.score)
+      return null;
+    if (this.a.pontoAtual >= this.score || this.b.pontoAtual >= this.score)
+      if (this.a.pontoAtual-this.b.pontoAtual >=2)
+        return this.a;
+      if (this.b.pontoAtual-this.a.pontoAtual >=2)
+        return this.b;
+    return null;
+  }
+}
 
 class Jogo {
+  sets = [];
   constructor (nomeA, nomeB){
-    this.timeA = new Time(nomeA, 0);
-    this.timeB = new Time(nomeB, 0);
     for (let i = 0; i<=5; i++){ 
       if (i==4){
-        sets[i] = {nomeA:0,nomeB:0, score:15,max:20, fim:false } ;
+        this.sets[i] = new SetDojogo(new Time(nomeA, 0),new Time(nomeB, 0),15) ;
         return;
       }
-      sets[i] = {nomeA:0,nomeB:0, score:25,max:30, fim:false };
+      this.sets[i] = new SetDojogo(new Time(nomeA, 0),new Time(nomeB, 0),25);
     }
   }
   
   pontuar(nome) {
-    for (set in this.sets){
-      if (!set.fim){
-        if (nomeA == nome){
-          set.nomeA++;
-          break;
+    for (let i=0;i<this.sets.length; i++){
+      if (!this.sets[i].fim){
+        if (this.sets[i].a.nome == nome){
+          this.sets[i].a.pontoAtual++;
+          document.getElementById("pontuacaoA").innerHTML = this.sets[i].a.pontoAtual;
+          if(this.sets[i].retornaVencedor()!= null){
+            this.sets[i].fim = true;
+            alert("Fim de set!");
+            this.encerrarSet();
+          }
+          return this.sets[i].a.pontoAtual;
         } else{
-          set.nomeB++;
-          break;
+          this.sets[i].b.pontoAtual++;
+          document.getElementById("pontuacaoB").innerHTML = this.sets[i].b.pontoAtual;
+          if(this.sets[i].retornaVencedor()!= null){
+            this.sets[i].fim = true;
+            alert("Fim de set!");
+            this.encerrarSet();
+          }
+          return this.sets[i].b.pontoAtual;
         }
       }
-    } 
-  } 
-  
+    }
+    return 0; 
+  }
+
+  encerrarSet(){
+    document.getElementById("pontuacaoA").innerHTML = '00';
+    document.getElementById("pontuacaoB").innerHTML = '00';
+
+    
+    for (let i=0;i<this.sets.length; i++){
+      if (!this.sets[i].fim)
+        continue;
+
+      if(this.sets[i].a.pontoAtual > this.sets[i].b.pontoAtual)
+        this.sets[i].a.set = 1;
+      else
+        this.sets[i].b.set = 1;
+
+      document.getElementById([i+1]+"A").innerHTML = this.sets[i].a.pontoAtual;
+      document.getElementById([i+1]+"B").innerHTML = this.sets[i].b.pontoAtual;
+    }
+    this.verificaVencedorJogo();
+
+  }
+
+  verificaVencedorJogo(){
+    let scoreA = 0;
+    let scoreB = 0;
+    for (let i=0;i<this.sets.length; i++){
+      scoreA += this.sets[i].a.set;
+      scoreB += this.sets[i].b.set;
+      
+
+      document.getElementById("setA").innerHTML = scoreA;
+      document.getElementById("setB").innerHTML = scoreB;
+      if (scoreA >= 3){
+        alert("!!!!!!!!!!!! FIM DE JOGO !!!!!!!!!!!!!!!!\n"+this.sets[i].a.nome + " foi o vencedor!");
+        document.getElementById("btnA").disabled = true;
+        document.getElementById("btnB").disabled = true;
+        return;
+      }
+      if (scoreB >= 3){
+        alert("!!!!!!!!!!!! FIM DE JOGO !!!!!!!!!!!!!!!!\n"+this.sets[i].b.nome + " foi o vencedor!");
+        document.getElementById("btnA").disabled = true;
+        document.getElementById("btnB").disabled = true;
+        return;
+      }
+    }
+  }
 }
 
+function inserirDados(){
 
+  this.horario = document.getElementById("horario").value;
+  this.timeA = document.getElementById("txtnomeA").value;
+  this.timeB = document.getElementById("txtnomeB").value;
 
-// FUNCOES
+  document.getElementById("dados").hidden = true;
+  document.getElementsByName("nomeA").forEach(el => el.innerHTML = this.timeA);
+  document.getElementsByName("nomeB").forEach(el => el.innerHTML = this.timeB);
+  document.getElementById("horarioDisplay").innerHTML = "Horário da partida: " + this.horario;
 
+  document.getElementById("pontuacao").hidden = false;
 
-describe("Controle de Pontuação de jogo de Vôlei", function () {
-  describe("Pontuar", function () {
-    it("deve retornar o adição de um ponto no time A", () => {
-      var jogo = new Jogo("Time A","Time B")
-      const value = pontuar("Time A");
-      // 3. Expect
-      expect(value).toBe(true);
-      expect(jogo.a.score).toBe(1);
-    });
-  });
-});
+};
 
+/**
+  Variáveis do jogo
+*/
+var horario = "";
+var timeA = "A";
+var timeB = "B";
 
-
+var jogo = new Jogo(timeA,timeB);

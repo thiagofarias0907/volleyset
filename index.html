@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>VolleyBall</title>
+ 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+
+    <!-- Favicons -->
+        <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+        <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+        <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+        <link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
+        <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+        <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+        <meta name="theme-color" content="#712cf9">
+    </head>
+    <body class="bg-dark ">   
+        <main>
+          <div id="dados" class="bg-light p-4 text-center">
+            <h1 class="display-5 fw-bold">Jogo de Vôlei</h1>
+            <form class=" col-lg-6 mx-auto pt pt-4">
+              <div class="mb-3">
+                <label for="horario" class="form-label">Horário da partida</label>
+                <input type="form-text" class="form-control" id="horario">
+              </div>
+              <div class="mb-3">
+                <label for="txtnomeA" class="form-label">Equipe A</label>
+                <input type="form-text" class="form-control" id="txtnomeA">
+              </div>
+              <div class="mb-3">
+                <label for="txtnomeB" class="form-label">Equipe B</label>
+                <input type="form-text" class="form-control" id="txtnomeB">
+              </div>
+              <button type="button" class="btn btn-primary" onclick="inserirDados()">Adicionar</button>
+            </form>
+          </div>
+            <div class="text-secondary px-4 py-5 text-center" id="pontuacao" hidden>
+                <div class="py-5">
+                <h1 class="display-5 fw-bold text-white">Pontuação do Jogo</h1>
+                <div class="col-lg-6 mx-auto pt-4">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                            <div class="card-body">
+                                <h1 id="pontuacaoA" class="card-title">00</h1><span id="setA">0</span>
+                                <p id="nomeA" name="nomeA" class="card-text">Time A</p>
+                                <button type="button" id="btnA" class="btn btn-primary btn-lg  fw-bold" onclick="jogo.pontuar('A')">Ponto</button>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1 id="pontuacaoB" class="card-title">00</h1><span id="setB">0</span>
+                                    <p id="nomeB" name="nomeB" class="card-text">Time B</p>
+                                    <button type="button" id="btnB"  class="btn btn-primary btn-lg fw-bold" onclick="jogo.pontuar('B')">Ponto</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container col-6 pt-4">
+                    <div class="row justify-content-md-center">
+                      <div class="col col-lg-2">
+                        <div class="col">SET</div>
+                        <div name="nomeA" class="col">Time A</div>
+                        <div name="nomeB" class="col">Time B</div>
+                      </div>
+                      <div class="col col-lg-2">
+                        <div id="1"  class="col">1</div>
+                        <div id="1A" class="col">00</div>
+                        <div id="1B" class="col">00</div>
+                      </div>
+                      <div class="col-md-2">
+                        <div id="2"  class="col">2</div>
+                        <div id="2A" class="col">00</div>
+                        <div id="2B" class="col">00</div>
+                      </div>
+                      <div class="col col-lg-2">
+                        <div id="3"  class="col">3</div>
+                        <div id="3A" class="col">00</div>
+                        <div id="3B" class="col">00</div>
+                      </div>
+                      <div class="col col-lg-2">
+                        <div id="4"  class="col">4</div>
+                        <div id="4A" class="col">00</div>
+                        <div id="4B" class="col">00</div>
+                      </div>
+                      <div class="col col-lg-2">
+                        <div id="5"  class="col">5</div>
+                        <div id="5A" class="col">00</div>
+                        <div id="5B" class="col">00</div>
+                      </div>
+                    </div>
+                    <div><h4 id="horarioDisplay"></h4></div>
+                </div>
+            </div>
+        </main>
+
+    <script src="./game.js" lang="javascript"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+        
+    </body>
+</html>

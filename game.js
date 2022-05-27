@@ -93,6 +93,9 @@ class Jogo {
       scoreA += this.sets[i].a.set;
       scoreB += this.sets[i].b.set;
       
+      //Sugestão: Trecho abaixo pode ser reduzido se guardar uma string do nome do time com score maior
+      //e, então, verificar se algum dos dois times tem score maior que 3.
+      //desse modo, como os dois blocos do if() são parecidos, iria reduzir-se algumas linhas.
 
       document.getElementById("setA").innerHTML = scoreA;
       document.getElementById("setB").innerHTML = scoreB;
@@ -119,6 +122,10 @@ function inserirDados(){
   this.timeB = document.getElementById("txtnomeB").value;
 
   document.getElementById("dados").hidden = true;
+
+  //Sugestão: alterar elementos no html de name para classes 'nomeX' e 
+  //trocar getElementsByName() para getElementsByClassName().
+
   document.getElementsByName("nomeA").forEach(el => el.innerHTML = this.timeA);
   document.getElementsByName("nomeB").forEach(el => el.innerHTML = this.timeB);
   document.getElementById("horarioDisplay").innerHTML = "Horário da partida: " + this.horario;

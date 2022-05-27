@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+  <!--Validar linguagem para pt-br-->
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,6 +27,11 @@
               <div class="mb-3">
                 <label for="horario" class="form-label">Horário da partida</label>
                 <input type="form-text" class="form-control" id="horario">
+                <!--
+                  Sugestão: input[type='form-text'] pode ser alterado para input[type='text'].
+                  Obs: tipo 'form-text' não existe. HTML não reconhece esse tipo de campo.
+                  O mesmo vale aos demais campos com o tipo.
+                -->
               </div>
               <div class="mb-3">
                 <label for="txtnomeA" class="form-label">Equipe A</label>
@@ -39,6 +45,9 @@
             </form>
           </div>
             <div class="text-secondary px-4 py-5 text-center" id="pontuacao" hidden>
+              <!--
+                O elemento <div>, acima, não tem tag de fechamento.
+              -->
                 <div class="py-5">
                 <h1 class="display-5 fw-bold text-white">Pontuação do Jogo</h1>
                 <div class="col-lg-6 mx-auto pt-4">
@@ -48,6 +57,10 @@
                             <div class="card-body">
                                 <h1 id="pontuacaoA" class="card-title">00</h1><span id="setA">0</span>
                                 <p id="nomeA" name="nomeA" class="card-text">Time A</p>
+                                <!--
+                                  Atributos [name] não são permitidos em elementos textuais
+                                  Sugestão: utilizar somente classes para atualizar os elementos (se caso forem múltiplos), ou id (se for um elemento único).
+                                -->
                                 <button type="button" id="btnA" class="btn btn-primary btn-lg  fw-bold" onclick="jogo.pontuar('A')">Ponto</button>
                             </div>
                             </div>
@@ -70,6 +83,11 @@
                         <div name="nomeA" class="col">Time A</div>
                         <div name="nomeB" class="col">Time B</div>
                       </div>
+                      <!--
+                        Atributos [name] não são permitidos em elementos textuais
+                        Sugestão: utilizar somente classes para atualizar os elementos (se caso forem múltiplos), 
+                        ou id (se for um elemento único).
+                      -->
                       <div class="col col-lg-2">
                         <div id="1"  class="col">1</div>
                         <div id="1A" class="col">00</div>
@@ -97,11 +115,20 @@
                       </div>
                     </div>
                     <div><h4 id="horarioDisplay"></h4></div>
+                    <!--
+                      Cabeçalho H4 fora de ordenação
+                      Sugestão: Verificar viabilidade de altera-lo para H2, pois o último cabeçalho é um H1.
+                      Obs:
+                    -->
                 </div>
             </div>
         </main>
 
-    <script src="./game.js" lang="javascript"></script>    
+    <script src="./game.js" lang="javascript"></script>   
+    <!--
+      Sugestão: verificar necessidade do atributo 'lang' para o script. Ou até alterar para 'type'.
+      Obs: atributos lang não podem exceder 8 casas e, desde o html4, estão depreciados (nessa situação).
+    --> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
         
     </body>
